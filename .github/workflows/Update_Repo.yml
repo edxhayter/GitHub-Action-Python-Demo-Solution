@@ -19,7 +19,10 @@ jobs:
         # to the major version number in the action.
 
       - name: install python
-        uses: actions/setup-python@v4 # 'uses:' means calling an action
+        uses: actions/setup-python@v4 # 'uses:' means calling an action, and has some arguments it expects specified in the 'with' below
+        with:
+          python-version: '3.9.13' # installs the python version developed on
+
 
         # pipe indicates a multiline command is following. The two lines that follow first ensure that pip is installed
         # and up to date. Then says read the packages from the provided file and install them.
