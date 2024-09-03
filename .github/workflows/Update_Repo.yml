@@ -1,0 +1,41 @@
+name: Update the Repo with a new Phrase
+
+on:
+  # Manual Trigger
+  workflow_dispatch:
+
+jobs:
+
+  # Job Name
+  Refresh-Phrase:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@master
+        # This checks out the master branch. This does not seem to be best practice as the master branch might be subject
+        # to bugs. Best practice suggests deploying the project and assigning major version numbers and then referring
+        # to the major version number in the action.
+
+      - name: install python
+        uses: actions/setup-python@v4 # 'uses:' means calling an action
+
+        # pipe indicates a multiline command is following. The two lines that follow first ensure that pip is installed
+        # and up to date. Then says read the packages from the provided file and install them.
+      - name: install requirements
+        run: | 
+          python -m pip install --upgrade.pip
+          pip install -r requirements.txt
+
+        # Run the script
+      - name: run script
+        run: python main.py
+
+      - name: commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add corporate_bs.txt
+          git commit -m 'Data updated' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
