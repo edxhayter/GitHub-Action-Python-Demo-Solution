@@ -33,7 +33,7 @@ jobs:
 
         # Run the script
       - name: run script
-        run: python main.py
+        run: python Main.py
 
       - name: commit files
         run: |
